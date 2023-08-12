@@ -18,7 +18,9 @@ public class Author {
     @Column(nullable = false)
     private Character gender;
 
-    @OneToOne(cascade = CascadeType.ALL) //owned element location SHOULD be cascadeable. all locations should be changed/del if author is cha1nged/del
+    // by default this relationship is Eager, but we CAN set it to LAZY fetching in case we dont want it to query for owned entities every time a owner entity is queried
+//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY) //owned element location SHOULD be cascadeable. all locations should be changed/del if author is cha1nged/del
     private Location location;
 
     public Author(){
@@ -31,6 +33,10 @@ public class Author {
         this.ratings = ratings;
         this.gender = gender;
         this.location = location;
+    }
+
+    public Location getLocation() {
+        return location;
     }
 
     public Long getId() {

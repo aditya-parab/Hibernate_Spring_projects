@@ -37,5 +37,31 @@ public class PublicationHouse {
         this.establishmentDate = establishmentDate;
     }
 
+    public Long getId() {
+        return Id;
+    }
 
+    public void setId(Long id) {
+        Id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Date getEstablishmentDate() {
+        return establishmentDate;
+    }
+
+    public void setEstablishmentDate(Date establishmentDate) {
+        this.establishmentDate = establishmentDate;
+    }
+
+    public Set<Book> getBooks() {
+        return books;
+    }
 }
