@@ -4,6 +4,7 @@ package com.neebal.entities;
 
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "books")
@@ -24,6 +25,23 @@ public class Book {
 
     @ManyToOne
     private PublicationHouse publicationHouse;
+
+    @ManyToMany(mappedBy = "books")
+    Set<Author> authors;
+
+    public PublicationHouse getPublicationHouse() {
+        return publicationHouse;
+    }
+
+    public Set<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(Set<Author> authors) {
+        this.authors = authors;
+    }
+
+
 
     public void setPublicationHouse(PublicationHouse publicationHouse) {
         this.publicationHouse = publicationHouse;

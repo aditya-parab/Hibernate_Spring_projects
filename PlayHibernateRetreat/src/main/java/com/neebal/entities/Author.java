@@ -1,6 +1,7 @@
 package com.neebal.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name="authors")
@@ -22,6 +23,17 @@ public class Author {
 //    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY) //owned element location SHOULD be cascadeable. all locations should be changed/del if author is cha1nged/del
     private Location location;
+
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
+
+    @ManyToMany
+    private Set<Book> books;
 
     public Author(){
 

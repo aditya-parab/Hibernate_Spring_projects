@@ -13,10 +13,10 @@ import java.util.Set;
 public class CreatePublicationHouse {
 
     public static void main(String[] args) {
-        Book b1 = new Book("Book1",879,900.0);
-        Book b2 = new Book("Book2",670,1000.0);
+        Book b1 = new Book("Book5",879,900.0);
+        Book b2 = new Book("Book6",670,1000.0);
 
-        PublicationHouse  publicationHouse = new PublicationHouse("mehul pvt ltd",new Date());
+        PublicationHouse  publicationHouse = new PublicationHouse("adi pvt ltd",new Date());
 
         b1.setPublicationHouse(publicationHouse);
         b2.setPublicationHouse(publicationHouse);
@@ -31,7 +31,7 @@ public class CreatePublicationHouse {
 
         try(Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
-            session.save(publicationHouse);
+            session.save(publicationHouse); //no need to save the books as books has cascading on it. any change in publication house will reflect in book
             transaction.commit();
         }
         }

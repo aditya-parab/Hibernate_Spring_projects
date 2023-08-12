@@ -20,7 +20,7 @@ public class PublicationHouse {
     private Date establishmentDate;
 
 
-    @OneToMany(mappedBy = "publicationHouse",cascade = CascadeType.ALL) // each book has foreign key of publication house
+    @OneToMany(mappedBy = "publicationHouse",cascade = CascadeType.ALL) //Publication house is owner. Yoeach book has foreign key of publication house
     private Set<Book> books;
 
     public void setBooks(Set<Book> books) {
