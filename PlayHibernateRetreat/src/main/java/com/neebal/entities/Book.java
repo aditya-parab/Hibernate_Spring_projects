@@ -29,6 +29,17 @@ public class Book {
     @ManyToMany(mappedBy = "books")
     Set<Author> authors;
 
+    @OneToMany(mappedBy = "book")
+    private Set<BookStudent> studentsIssued;
+
+    public Set<BookStudent> getStudentsIssued() {
+        return studentsIssued;
+    }
+
+    public void setStudentsIssued(Set<BookStudent> studentsIssued) {
+        this.studentsIssued = studentsIssued;
+    }
+
     public PublicationHouse getPublicationHouse() {
         return publicationHouse;
     }

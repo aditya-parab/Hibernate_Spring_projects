@@ -1,6 +1,7 @@
 package studentExamSystem.entities;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -26,6 +27,10 @@ public class Question {
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "question")
     private Set<QuestionOption> questionOptions;
+
+    @OneToMany(mappedBy = "question")
+    private Set<ExamQuestion> examQuestions = new HashSet<>();
+
 
     public Question() {
     }

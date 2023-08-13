@@ -22,9 +22,17 @@
         <mapping class="com.neebal.entities.Location"/>
         <mapping class="com.neebal.entities.Author"/>
         <mapping class="com.neebal.entities.PublicationHouse"/>
+
+        <mapping class="com.neebal.entities.Book"/>
+        <mapping class="com.neebal.entities.Student"/>
+        <mapping class="com.neebal.entities.BookStudent"/>
         <mapping class="studentExamSystem.entities.QuestionOption"/>
         <mapping class="studentExamSystem.entities.Question"/>
         <mapping class="studentExamSystem.entities.Topic"/>
+        <mapping class="studentExamSystem.entities.Exam"/>
+        <mapping class="studentExamSystem.entities.ExamQuestion"/>
+        <mapping class="studentExamSystem.entities.StudentEntity"/>
+        <mapping class="studentExamSystem.entities.StudentExam"/>
 
 
         
