@@ -70,36 +70,43 @@ public class Test {
         studentExam.setStudentEntity(studententity);
         studentExam.setExam(exam);
 
-//// Simulate student's answers (assumes the student gets all answers correct)
-//        for (ExamQuestion examQuestion : exam.getExamQuestions()) {
-//            Question question = examQuestion.getQuestion();
-//            StudentAnswer studentAnswer = new StudentAnswer();
-//            studentAnswer.setQuestion(question);
-//            studentAnswer.setChosenOption(question.getAnswer()); // Assuming answer matches option description
-//            studentExam.getAnswers().add(studentAnswer);
-//        }
-//
-//        // Calculate total marks
-//        int totalMarks = 0;
-//        for (StudentAnswer studentAnswer : studentExam.getAnswers()) {
-//            Question question = studentAnswer.getQuestion();
-//            String chosenOption = studentAnswer.getChosenOption();
-//            Set<QuestionOption> questionOptions = question.getQuestionOptions();
-//            for (QuestionOption option : questionOptions) {
-//                if (option.isCorrect() && option.getDescr().equals(chosenOption)) {
-//                    totalMarks += question.getMarks();
-//                    break;
-//                }
-//            }
-//        }
-//
-//        // Set the calculated marks and exam date
-//        studentExam.setMarksObtained(totalMarks);
-//        studentExam.setDateExamTaken(LocalDate.now());
-//
-//        // Print the calculated marks
-//        System.out.println("The marks gained in this exam by the student are: " + totalMarks);
+        // Simulate student's answers (assumes the student gets all answers correct)
+        for (ExamQuestion examQuestion : exam.getExamQuestions()) {
+            Question question = examQuestion.getQuestion();
+            StudentAnswer studentAnswer = new StudentAnswer();
+            studentAnswer.setStudentExam(studentExam);
+            studentAnswer.setQuestion(question);
+
+            // Assuming answer matches option description
+            QuestionOption chosenOption = new QuestionOption();
+            chosenOption.setDescr(question.getAnswer());
+            studentAnswer.setChosenOption(chosenOption);
+
+            studentExam.getStudentAnswers().add(studentAnswer); // Add student answer to the list
+        }
+
+        // Calculate total marks
+        int totalMarks = 0;
+        for (StudentAnswer studentAnswer : studentExam.getStudentAnswers()) {
+            Question question = studentAnswer.getQuestion();
+            QuestionOption chosenOption = studentAnswer.getChosenOption();
+            questionOptions = question.getQuestionOptions();
+            for (QuestionOption option : questionOptions) {
+                if (option.isCorrect() && option.getDescr().equals(chosenOption.getDescr())) {
+                    totalMarks += question.getMarks();
+                    break;
+                }
+            }
+        }
+
+        // Set the calculated marks and exam date
+        studentExam.setMarksObtained(totalMarks);
+        studentExam.setDateExamTaken(new Date());
+
+        // Print the calculated marks
+        System.out.println("The marks gained in this exam by the student are: " + totalMarks);
+    }
     }
 
 
-}
+

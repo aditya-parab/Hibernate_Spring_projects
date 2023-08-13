@@ -9,6 +9,15 @@ public class StudentAnswer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    private StudentExam studentExam;
+
+    @ManyToOne
+    private Question question;
+
+    @ManyToOne
+    private QuestionOption chosenOption;
+
     public StudentExam getStudentExam() {
         return studentExam;
     }
@@ -33,14 +42,7 @@ public class StudentAnswer {
         this.chosenOption = chosenOption;
     }
 
-    @ManyToOne
-    private StudentExam studentExam;
 
-    @ManyToOne
-    private Question question;
-
-    @ManyToOne
-    private QuestionOption chosenOption;
 
     // Getters and setters
 }

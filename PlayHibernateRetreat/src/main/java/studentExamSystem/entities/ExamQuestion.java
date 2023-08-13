@@ -3,6 +3,7 @@ package studentExamSystem.entities;
 import javax.persistence.*;
 
 @Entity
+@Table(name="examquestions")
 public class ExamQuestion {
     public Exam getExam() {
         return exam;

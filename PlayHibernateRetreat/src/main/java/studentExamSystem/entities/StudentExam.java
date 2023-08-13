@@ -21,6 +21,17 @@ public class StudentExam {
     @ManyToOne
     private StudentEntity studentEntity;
 
+    @OneToMany(mappedBy = "studentExam", cascade = CascadeType.ALL) // Define the mapping
+    private List<StudentAnswer> studentAnswers = new ArrayList<>(); // Store student answers
+
+    public List<StudentAnswer> getStudentAnswers() {
+        return studentAnswers;
+    }
+
+    public void setStudentAnswers(List<StudentAnswer> studentAnswers) {
+        this.studentAnswers = studentAnswers;
+    }
+
     public Exam getExam() {
         return exam;
     }
