@@ -8,6 +8,20 @@ import java.util.Set;
 
 @Entity
 @Table(name = "books")
+@NamedQueries({
+        @NamedQuery(
+                name="Book.findTitlePrice",
+                query="Select b.title,b.price from Book b"
+        ),
+        @NamedQuery(
+                name="Book.findAllBookTitles",
+                query = "Select b.title from Book b"
+        ),
+        @NamedQuery(
+                name= "Book.findAllBookTitlesAndPagesGreaterThan400Desc",
+                query = "select b.title,b.pages from Book b where b.pages> :pages  order by b.price"
+        )
+})
 public class Book {
 
     @Id
