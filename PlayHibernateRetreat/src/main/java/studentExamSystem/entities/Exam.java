@@ -18,5 +18,29 @@ public class Exam {
     @OneToMany(mappedBy = "exam")
     private Set<StudentExam> studentsEnrolled = new HashSet<>();
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Set<ExamQuestion> getExamQuestions() {
+        return examQuestions;
+    }
+
+    public void setExamQuestions(Set<ExamQuestion> examQuestions) {
+        this.examQuestions = examQuestions;
+    }
+
+    public Set<StudentExam> getStudentsEnrolled() {
+        return studentsEnrolled;
+    }
+
+    public void setStudentsEnrolled(Set<StudentExam> studentsEnrolled) {
+        this.studentsEnrolled = studentsEnrolled;
+    }
+
     // Getters and setters
 }

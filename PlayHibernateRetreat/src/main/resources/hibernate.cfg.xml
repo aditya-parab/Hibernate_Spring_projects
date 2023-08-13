@@ -33,6 +33,7 @@
         <mapping class="studentExamSystem.entities.ExamQuestion"/>
         <mapping class="studentExamSystem.entities.StudentEntity"/>
         <mapping class="studentExamSystem.entities.StudentExam"/>
+        <mapping class="studentExamSystem.entities.StudentAnswer"/>
 
 
         

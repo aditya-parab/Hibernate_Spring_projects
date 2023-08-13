@@ -15,6 +15,22 @@ public class StudentEntity {
     @Column(nullable = false)
     private String name;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<StudentExam> getExamsEnrolled() {
+        return examsEnrolled;
+    }
+
+    public void setExamsEnrolled(Set<StudentExam> examsEnrolled) {
+        this.examsEnrolled = examsEnrolled;
+    }
+
     @OneToMany(mappedBy = "studentEntity")
     private Set<StudentExam> examsEnrolled = new HashSet<>();
 }
