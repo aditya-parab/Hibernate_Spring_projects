@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <!-- Database connection settings -->
+        <property name="connection.driver_class">org.mariadb.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mariadb://localhost:3306/school_db</property>
+        <property name="connection.username">mehulchopra</property>
+        <property name="connection.password">admin123</property>
+        
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+
+        <!-- SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.MariaDBDialect</property>
+
+        <property name="hbm2ddl.auto">update</property>
+        <mapping class="com.neebal.entities.Book"/>
+        <mapping class="com.neebal.entities.Author"/>
+        <mapping class="com.neebal.entities.Location"/>
+        <mapping class="com.neebal.entities.PublicationHouse" />
+        <mapping class="com.neebal.entities.Student" />
+        <mapping class="com.neebal.entities.BookStudent" />
+        <mapping class="com.neebal.entities.Professor" />
+        <mapping class="com.neebal.entities.Person" />
+    </session-factory>
+</hibernate-configuration>

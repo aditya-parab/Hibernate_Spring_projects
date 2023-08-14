@@ -13,10 +13,12 @@ public class Exam {
     private String title;
 
     @OneToMany(mappedBy = "exam")
-    private Set<ExamQuestion> examQuestions = new HashSet<>();
+    private Set<ExamQuestion> examQuestions;
 
     @OneToMany(mappedBy = "exam")
-    private Set<StudentExam> studentsEnrolled = new HashSet<>();
+    private Set<StudentExam> studentsEnrolled;
+
+
 
     public String getTitle() {
         return title;
