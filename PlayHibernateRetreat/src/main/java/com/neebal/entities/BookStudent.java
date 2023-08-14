@@ -7,6 +7,8 @@ import javax.persistence.*;
 @Entity
 @Table(name="book_students")
 public class BookStudent implements Serializable {
+
+    //***composite key***
     @Id
     @ManyToOne
     private Book book;
@@ -14,6 +16,8 @@ public class BookStudent implements Serializable {
     @Id
     @ManyToOne
     private Student student;
+
+    //***composite key***
 
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
