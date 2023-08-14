@@ -61,8 +61,8 @@ import java.util.Set;
 
 public class CreateQuestion {
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    public static Question createQuestion(Scanner scanner) {
+
 
         System.out.println("Enter the question:");
         String questionText = scanner.nextLine();
@@ -100,26 +100,10 @@ public class CreateQuestion {
 //        System.out.println("Enter the correct answer for the question:");
 //        String correctAnswer = scanner.nextLine();
 
-        Question question = new Question(questionText, marks, correctAnswer);
+        Question question = new Question(questionText, marks);
         question.setQuestionOptions(questionOptions);
 
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            session.save(question);
-
-            // Save the associated question options
-            for (QuestionOption option : questionOptions) {
-                option.setQuestion(question);
-                session.save(option);
-            }
-
-            transaction.commit();
-        }
-
-        sessionFactory.close();
-        scanner.close();
+        return question;
     }
 }
 

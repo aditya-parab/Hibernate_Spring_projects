@@ -18,11 +18,7 @@ public class Question {
     @Column(nullable = false)
     private int marks;
 
-    @Column(nullable = true)
-    private String answer;
-
-
-    @ManyToOne
+    @ManyToOne()
     private Topic topic;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "question")
@@ -32,14 +28,29 @@ public class Question {
     private Set<ExamQuestion> examQuestions = new HashSet<>();
 
 
+
+
+    public Set<ExamQuestion> getExamQuestions() {
+        return examQuestions;
+    }
+
+    public void setExamQuestions(Set<ExamQuestion> examQuestions) {
+        this.examQuestions = examQuestions;
+    }
+
+
+
+
+
+
     public Question() {
     }
 
-    public Question(String descr, int marks, String answer, Topic topic, Set<QuestionOption> questionOptions) {
+    public Question(String descr, int marks,  Topic topic, Set<QuestionOption> questionOptions) {
         this.descr = descr;
         this.marks = marks;
         this.topic = topic;
-        this.answer = answer;
+
         this.questionOptions = questionOptions;
     }
     public Question(String descr, int marks, String answer, Topic topic) {
@@ -49,11 +60,7 @@ public class Question {
 
     }
 
-    public Question(String descr, int marks, String answer) {
-        this.descr = descr;
-        this.marks = marks;
-        this.answer=answer;
-    }
+
 
     public Question(String descr, int marks) {
         this.descr = descr;
@@ -87,13 +94,6 @@ public class Question {
         this.descr = descr;
     }
 
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
 
     public Topic getTopic() {
         return topic;

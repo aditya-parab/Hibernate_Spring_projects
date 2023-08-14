@@ -1,112 +1,86 @@
 package studentExamSystem;
 
-import com.neebal.entities.Student;
+import com.neebal.HibernateUtil;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import studentExamSystem.entities.StudentEntity;
 import studentExamSystem.entities.*;
 
 import java.util.*;
 
 public class Test {
     public static void main(String[] args) {
-        // Create question options and questions
-        QuestionOption qo1 = new QuestionOption("China", true);
-        QuestionOption qo2 = new QuestionOption("India", false);
-        QuestionOption qo3 = new QuestionOption("Brazil", false);
-        QuestionOption qo4 = new QuestionOption("Australia", false);
+        int totalMarks=0;
 
-        Question question1 = new Question("What is the most populous country?", 4, "China");
-        Question question2 = new Question("What is the second most populous country?", 4, "India");
-        Question question3 = new Question("What is the third most populous country?", 4, "China");
+        Scanner scanner = new Scanner(System.in);
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
-        qo1.setQuestion(question1);
-        qo2.setQuestion(question1);
-        qo3.setQuestion(question1);
-        qo4.setQuestion(question1);
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            System.out.println("Enter the Name of student:");
+            String sname = scanner.nextLine();
+            StudentEntity student = new StudentEntity();
+            student.setName(sname);
 
-        qo1.setQuestion(question2);
-        qo2.setQuestion(question2);
-        qo3.setQuestion(question2);
-        qo4.setQuestion(question2);
+            StudentExam studentExam = new StudentExam();
+            studentExam.setStudentEntity(student);
 
-        qo1.setQuestion(question3);
-        qo2.setQuestion(question3);
-        qo3.setQuestion(question3);
-        qo4.setQuestion(question3);
 
-        Set<QuestionOption> questionOptions = new HashSet<>();
-        questionOptions.add(qo1);
-        questionOptions.add(qo2);
-        questionOptions.add(qo3);
-        questionOptions.add(qo4);
+            System.out.println("Enter the Exam id you want to take?");
+            long examId = scanner.nextLong();
+            scanner.nextLine(); // Consume the newline character left in the buffer
+            Exam selectedExam = session.get(Exam.class, examId);
+            studentExam.setDateExamTaken(new Date());
+            studentExam.setExam(selectedExam);
+            List<ExamQuestion> examQuestions = new ArrayList<>(selectedExam.getExamQuestions());
 
-        question1.setQuestionOptions(questionOptions);
-        question2.setQuestionOptions(questionOptions);
-        question3.setQuestionOptions(questionOptions);
+            for (ExamQuestion examQuestion : examQuestions) {
+                Question question = examQuestion.getQuestion();
+                Set<QuestionOption> questionOptions = question.getQuestionOptions();
 
-        // Create a set of questions for an exam
-        Set<Question> examQuestions = new HashSet<>();
-        examQuestions.add(question1);
-        examQuestions.add(question2);
-        examQuestions.add(question3);
+                System.out.println("The Question: " + question.getDescr());
 
-        // Create an exam and associate questions using ExamQuestion
-        Exam exam = new Exam();
-        exam.setTitle("Sample Exam");
-
-        Set<ExamQuestion> examQuestionSet = new HashSet<>();
-        for (Question question : examQuestions) {
-            ExamQuestion examQuestion = new ExamQuestion();
-            examQuestion.setExam(exam);
-            examQuestion.setQuestion(question);
-            examQuestionSet.add(examQuestion);
-        }
-        exam.setExamQuestions(examQuestionSet);
-
-        // Create a student
-        StudentEntity studententity = new StudentEntity();
-        studententity.setName("John");
-
-        // Simulate student's exam answers
-        StudentExam studentExam = new StudentExam();
-        studentExam.setStudentEntity(studententity);
-        studentExam.setExam(exam);
-
-        // Simulate student's answers (assumes the student gets all answers correct)
-        for (ExamQuestion examQuestion : exam.getExamQuestions()) {
-            Question question = examQuestion.getQuestion();
-            StudentAnswer studentAnswer = new StudentAnswer();
-            studentAnswer.setStudentExam(studentExam);
-            studentAnswer.setQuestion(question);
-
-            // Assuming answer matches option description
-            QuestionOption chosenOption = new QuestionOption();
-            chosenOption.setDescr(question.getAnswer());
-            studentAnswer.setChosenOption(chosenOption);
-
-            studentExam.getStudentAnswers().add(studentAnswer); // Add student answer to the list
-        }
-
-        // Calculate total marks
-        int totalMarks = 0;
-        for (StudentAnswer studentAnswer : studentExam.getStudentAnswers()) {
-            Question question = studentAnswer.getQuestion();
-            QuestionOption chosenOption = studentAnswer.getChosenOption();
-            questionOptions = question.getQuestionOptions();
-            for (QuestionOption option : questionOptions) {
-                if (option.isCorrect() && option.getDescr().equals(chosenOption.getDescr())) {
-                    totalMarks += question.getMarks();
-                    break;
+                for(QuestionOption questionOption: questionOptions){
+                    System.out.println(questionOption.getDescr());
                 }
+
+                //take student's answer string and set as chosenOption
+                System.out.println("What is your answer?");
+                String answer = scanner.nextLine();
+                QuestionOption chosenOption = new QuestionOption();
+                chosenOption.setDescr(answer);
+
+                session.save(chosenOption);
+
+
+                // Record student's answer
+                StudentAnswer studentAnswer = new StudentAnswer();
+                studentAnswer.setStudentExam(studentExam);
+                studentAnswer.setQuestion(question);
+                studentAnswer.setChosenOption(chosenOption);
+
+                session.save(studentAnswer);
+
+                //calculate marks
+                for(QuestionOption questionOption: questionOptions){
+                    if(chosenOption.getDescr().equals(questionOption.getDescr()) && questionOption.isCorrect()){
+                        totalMarks+=question.getMarks();
+
+                    }
+                }
+
+
             }
-        }
-
-        // Set the calculated marks and exam date
         studentExam.setMarksObtained(totalMarks);
-        studentExam.setDateExamTaken(new Date());
 
-        // Print the calculated marks
-        System.out.println("The marks gained in this exam by the student are: " + totalMarks);
-    }
-    }
+            session.save(student);
+            session.save(studentExam);
+            session.save(selectedExam);
+            transaction.commit();
 
+        }
+        System.out.println("The student's total marks are "+totalMarks);
+    }}
 
 

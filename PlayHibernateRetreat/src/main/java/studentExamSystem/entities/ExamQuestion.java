@@ -1,10 +1,33 @@
 package studentExamSystem.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="examquestions")
-public class ExamQuestion {
+public class ExamQuestion  {
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+
+    @ManyToOne
+    private Exam exam;
+
+
+    @ManyToOne
+    private Question question;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Exam getExam() {
         return exam;
     }
@@ -20,16 +43,5 @@ public class ExamQuestion {
     public void setQuestion(Question question) {
         this.question = question;
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @ManyToOne
-    private Exam exam;
-
-    @ManyToOne
-    private Question question;
-
-    // Getters and setters
+// Getters and setters
 }
