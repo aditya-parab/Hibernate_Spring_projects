@@ -14,7 +14,7 @@ public class Book {
         private String title;
 
     @Column(nullable = false)
-    private String pages;
+    private Integer pages;
 
     @Column(nullable = true)
     private Double price;
@@ -23,7 +23,7 @@ public class Book {
 
     }
 
-    public Book(String title, String pages, Double price) {
+    public Book(String title, int pages, Double price) {
         this.title = title;
         this.pages = pages;
         this.price = price;
@@ -45,11 +45,11 @@ public class Book {
         this.title = title;
     }
 
-    public String getPages() {
+    public int getPages() {
         return pages;
     }
 
-    public void setPages(String pages) {
+    public void setPages(int pages) {
         this.pages = pages;
     }
 
