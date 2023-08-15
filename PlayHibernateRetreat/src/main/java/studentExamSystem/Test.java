@@ -24,6 +24,10 @@ public class Test {
             student.setName(sname);
 
             StudentExam studentExam = new StudentExam();
+            if(studentExam.getStudentEntity().getName().equals(sname)){
+                System.out.println("Student is already registered. Please try again.");
+                return;
+            }
             studentExam.setStudentEntity(student);
 
 
