@@ -1,32 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+  <!DOCTYPE html>
+  <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>::Login here</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>::Home</title>
+    <style>
+      .success {
+        color: green;
+      }
 
-<body>
-  <h2> Login here ! </h2>
-  <h3> ${greeting} </h3>
-  <form action="">
-    <p>
-      <input type="text" placeholder="Username">
-    </p>
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
 
-    <p>
-      <input type="password" placeholder="Password">
-    </p>
+  <body>
+    <c:if test="${not empty registerSuccess}">
+      <div class="success">
+        User has registered successfully. Please login.
+      </div>
+    </c:if>
 
-    <p>
-      <input type="submit" value="Login">
-      <a href="/registration">Register here!</a>
-    </p>
-  </form>
+    <c:if test="${not empty invalidCreds}">
+      <div class="error">
+        Invalid username or password
+      </div>
+    </c:if>
 
-</body>
+    <h2> Login here ! </h2>
+    <h3> ${greeting} </h3>
+    <form method="POST" action="/login">
+      <p>
+        <input type="text" name="username" placeholder="Username">
+      </p>
 
-</html>
+      <p>
+        <input type="password" name="password" placeholder="Password">
+      </p>
+
+      <p>
+        <input type="submit" value="Login">
+        <a href="/registration">Register here!</a>
+      </p>
+    </form>
+
+  </body>
+
+  </html>

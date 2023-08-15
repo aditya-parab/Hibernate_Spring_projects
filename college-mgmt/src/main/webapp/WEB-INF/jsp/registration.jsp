@@ -13,17 +13,17 @@
     <body>
         <main>
             <h2>Register here! (${greeting})</h2>
-            <form>
+            <form method="POST", action="/registration">
                 <p>
-                    <input placeholder="Username">
+                    <input name="username" placeholder="Username">
                 </p>
                 <p>
-                    <input placeholder="Password">
+                    <input type="password" name="password" placeholder="Password">
                 </p>
 
                 <p>
                     Country:
-                    <select>
+                    <select name="country">
                         <c:forEach items="${countries}" var="country">
                             <option>${country}</option>
                         </c:forEach>
@@ -32,13 +32,13 @@
 
 
                 <p>Please select your gender</p>
-                <input type="radio" id="male" name="gender" value="male">
+                <input type="radio" name="gender" value="M">
                 <label for="male">Male</label>
-                <input type="radio" id="female" name="gender" value="female">
+                <input type="radio" name="gender" value="F">
                 <label for="female">Female</label>
                 <p>
                     <input type="submit" value="Register">
-                    <a>Register</a>
+
                 </p>
             </form>
         </main>
