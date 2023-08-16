@@ -1,6 +1,7 @@
 package com.example.collegemgmt;
 
 import com.example.collegemgmt.entities.Book;
+import com.example.collegemgmt.entities.BookStudent;
 import com.example.collegemgmt.entities.Student;
 import com.example.collegemgmt.repository.BookRepository;
 import com.example.collegemgmt.repository.BookStudentRepository;
@@ -12,6 +13,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @SpringBootApplication
@@ -107,12 +109,14 @@ public class   CollegeMgmtSystemApplication implements CommandLineRunner {
 //				.forEach(book -> System.out.println(book.getTitle()));
 
 //this.studentRepository
-//		.saveAll(Arrays.asList(new Student("admin","123",'m'),
-//				new Student("xyz","456",'f'),
-//				new Student("jane","789",'f')
+//		.saveAll(Arrays.asList(new Student("cheemu","619",'m'),
+//				new Student("meow","1748",'f'),
+//				new Student("janestreet","22",'f')
 //				));
 
-		this.bookStudentService.issueBook(2,1);
+
+
+		this.bookStudentService.transferBook(3l,2l,4l);
 
 
 

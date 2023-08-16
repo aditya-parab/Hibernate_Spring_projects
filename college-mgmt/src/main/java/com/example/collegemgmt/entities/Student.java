@@ -31,6 +31,14 @@ public class Student {
         this.booksIssued = booksIssued;
     }
 
+    public Set<BookStudent> getBooksIssued() {
+        return booksIssued;
+    }
+
+    public void setBooksIssued(Set<BookStudent> booksIssued) {
+        this.booksIssued = booksIssued;
+    }
+
     public Long getId() {
         return id;
     }
