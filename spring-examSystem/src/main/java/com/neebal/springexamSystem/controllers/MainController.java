@@ -64,16 +64,18 @@ public class MainController {
 
         redirectAttributes.addFlashAttribute("name",student.getName());
 
-        System.out.println("we will now print all the exams");
+
 
        List<Exam> examList= this.examRepository.findAll();
 //       examList.forEach(
 //               exam -> System.out.println(exam.getTitle())
 //       );
-       modelMap.put("examList",examList);
+
+        redirectAttributes.addFlashAttribute("examList",examList);
+//       modelMap.put();
 
 
-        return "/chooseexam";
+        return "redirect:/chooseexam";
 
     }
 
@@ -88,7 +90,7 @@ public class MainController {
 
     @RequestMapping(value = "/chooseexam",method = RequestMethod.POST)
     public String chooseExamPost(ModelMap modelMap, @RequestParam("examChosenTitle") String examChosenTitle,
-                                 @ModelAttribute("studentexam") StudentExam studentExam) {
+                                 @ModelAttribute("studentexam") StudentExam studentExam,Model model) {
         List<Exam> examList= this.examRepository.findAll();
         Exam selectedExam = new Exam();
         for(Exam exam : examList){
@@ -99,17 +101,17 @@ public class MainController {
         studentExam.setDateExamTaken(new Date());
         studentExam.setExam(selectedExam);
         List<ExamQuestion> examQuestions = new ArrayList<>(selectedExam.getExamQuestions());
-        modelMap.put("examQuestions",examQuestions);
+            modelMap.put("examQuestions",examQuestions);
+            model.addAttribute("examQuestions", examQuestions);
 
-        for(ExamQuestion examQuestion: examQuestions){
-            System.out.println(examQuestion.getQuestion().getDescr());
-        }
-
-
-
+//        for(ExamQuestion examQuestion: examQuestions){
+//            System.out.println(examQuestion.getQuestion().getDescr());
+//        }
 
 
-
-        return "chooseexam";
+        return "redirect:/exampage";
     }
+
+
+
 }
