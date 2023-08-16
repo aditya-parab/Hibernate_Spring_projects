@@ -116,8 +116,9 @@ public class   CollegeMgmtSystemApplication implements CommandLineRunner {
 
 
 
-		this.bookStudentService.transferBook(3l,2l,4l);
+//		this.bookStudentService.transferBook(3l,2l,4l);
 
+		this.bookStudentService.issueBook(5l,4l);
 
 
 	}

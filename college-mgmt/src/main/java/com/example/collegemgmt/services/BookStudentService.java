@@ -32,6 +32,9 @@ public class BookStudentService {
     @Lazy // to avoid circular dependency
     BookStudentService bookStudentService;
 
+    @Autowired
+    SendEmailService sendEmailService;
+
 //    @Transactional
 //    public BookStudent issueBook(long bookId, long studentId) throws Exception {
 //        Book book = this.bookRepository.findBookById(bookId);
@@ -94,6 +97,10 @@ public class BookStudentService {
 
         BookStudent bookStudent = new BookStudent(book, student, new Date(),null);
         this.bookStudentRepository.save(bookStudent);
+
+        //send a confirmation email to the student
+        String email = "adparab97@gmail.com";
+        sendEmailService.sendMail(email,"great job aditya!");
 
         return bookStudent;
     }

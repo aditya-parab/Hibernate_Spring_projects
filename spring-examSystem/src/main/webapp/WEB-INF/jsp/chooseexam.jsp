@@ -24,7 +24,18 @@
 
         <h3>Now.. Time to choose your exam by Id.</h3>
 
+        <p>
+            Exam:
+        <form method="POST" action="/chooseexam">
+            <select name="examChosenTitle">
+                <c:forEach items="${examList}" var="exam">
+                    <option>${exam.title}</option>
+                </c:forEach>
+            </select>
+            <input type="submit" value="Submit">
+        </form>
 
+        </p>
 
 
 
