@@ -19,9 +19,18 @@ import java.util.List;
 @SessionAttributes({"student","studentExam"}) //names of attributes that we want SPRING MVC to remember for whole session
 public class MainController {
 
-
+    @Autowired
     MasterDataService masterDataService;
+    @Autowired
     ExamRepository examRepository;
+
+
+    public MainController(){
+
+        System.out.println("Main controller constructor is being called now.");
+    }
+
+
 
 
 
@@ -45,23 +54,27 @@ public class MainController {
         StudentEntity student = masterDataService.setStudentName(name);
         model.addAttribute("student",student);
 
-        StudentExam studentExam = masterDataService.setStudent(student);
+
+        StudentExam studentExam = new StudentExam();
+        studentExam.setStudentEntity(student);
         model.addAttribute("studentExam",student);
 
         redirectAttributes.addFlashAttribute("name",student.getName());
-        masterDataService.getAllExams();
 
+        System.out.println("we will now print all the exams");
 
-
-
+       List<Exam> examList= this.examRepository.findAll();
+       examList.forEach(
+               exam -> System.out.println(exam.getTitle())
+       );
 
         return "redirect:/chooseexam";
 
     }
 
     @RequestMapping(value = "/chooseexam",method = RequestMethod.GET)
-    public String chooseExamGet(ModelMap modelMap, @ModelAttribute("name")String name, ExamRepository examRepository) {
-        this.examRepository=examRepository;
+    public String chooseExamGet(ModelMap modelMap, @ModelAttribute("name")String name) {
+
         modelMap.put("name",name);
 
 

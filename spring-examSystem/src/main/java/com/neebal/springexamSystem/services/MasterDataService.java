@@ -15,15 +15,19 @@ import java.util.List;
 @SessionAttributes("student")
 public class MasterDataService {
 
-    StudentEntity studentEntity;
-    StudentExam studentExam;
+    private StudentEntity studentEntity;
+    private StudentExam studentExam;
 
     @Autowired
-    ExamRepository examRepository;
+    private ExamRepository examRepository;
 
-    MasterDataService(){
+
+    public MasterDataService(){
         studentEntity=new StudentEntity();
         studentExam = new StudentExam();
+
+        System.out.println("masterDataService constructor is being called");
+
     }
 
 
@@ -33,26 +37,18 @@ public class MasterDataService {
         return studentEntity;
     }
 
-    public StudentExam setStudent(@ModelAttribute("student") StudentEntity student){
-        studentExam.setStudentEntity(student);
-//        System.out.println(student.getName());
-        return studentExam;
-    }
-
-    public List<Object[]> getAllExams(){
-//        List<Object[]> examIdsAndTitles = examRepository.findAllExamIdsAndTitles();
 
 
-//        for (Object[] examData : examIdsAndTitles) {
-//            Long examId = (Long) examData[0];
-//            String examTitle = (String) examData[1];
-//
-//
-//            System.out.println("Exam ID: " + examId + ", Title: " + examTitle);
-//
-//        }
-//        return examIdsAndTitles;
+    public List<Exam> getAllExams(){
+            if(this.examRepository==null){
+                System.out.println("examrepo is null");
+            }
+            List<Exam> exams = this.examRepository.findAll();
+        exams
+                .forEach(exam -> System.out.println("exam title"+exam.getTitle()));
 
-    return null;
+
+
+    return exams;
     }
 }

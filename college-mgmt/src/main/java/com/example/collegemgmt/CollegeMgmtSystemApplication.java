@@ -1,7 +1,11 @@
 package com.example.collegemgmt;
 
 import com.example.collegemgmt.entities.Book;
+import com.example.collegemgmt.entities.Student;
 import com.example.collegemgmt.repository.BookRepository;
+import com.example.collegemgmt.repository.BookStudentRepository;
+import com.example.collegemgmt.repository.StudentRepository;
+import com.example.collegemgmt.services.BookStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,6 +20,15 @@ public class   CollegeMgmtSystemApplication implements CommandLineRunner {
 
 	@Autowired
 	private BookRepository bookRepository;
+
+	@Autowired
+	private StudentRepository studentRepository;
+
+	@Autowired
+	private BookStudentRepository bookStudentRepository;
+
+	@Autowired
+	private BookStudentService bookStudentService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CollegeMgmtSystemApplication.class, args);
@@ -73,11 +86,33 @@ public class   CollegeMgmtSystemApplication implements CommandLineRunner {
 //		System.out.println(ans);
 
 		//find all books that have "prog" in title, sorted in desc order of price
-			this.bookRepository.findBookByTitleContainingOrderByPriceDesc("prog")
-					.forEach(book -> System.out.println(book.getTitle()));
+//			this.bookRepository.findBookByTitleContainingOrderByPriceDesc("prog")
+//					.forEach(book -> System.out.println(book.getTitle()));
 
+		//check whether a book exists whose title starts with word prog
+//		System.out.println(this.bookRepository.existsBookByTitleStartingWith("prog"));
 
+		//query for title,price of all books  whose pages greater than 200
+//		bookRepository.findBookByPagesGreaterThan(200)
+//				.forEach(bookTitlePrice -> {
+//					System.out.println(bookTitlePrice.getTitle()+ " "+ bookTitlePrice.getPrice());
+//				});
 
+		//group the books by price and find the count of groups
+//		bookRepository.groupByPriceCountBooks()
+//				.forEach(objects -> System.out.println(objects[0]+" "+objects[1]));
+
+//		this.bookRepository
+//				.queryBookByPriceLessThanEqual(200.0)
+//				.forEach(book -> System.out.println(book.getTitle()));
+
+//this.studentRepository
+//		.saveAll(Arrays.asList(new Student("admin","123",'m'),
+//				new Student("xyz","456",'f'),
+//				new Student("jane","789",'f')
+//				));
+
+		this.bookStudentService.issueBook(2,1);
 
 
 

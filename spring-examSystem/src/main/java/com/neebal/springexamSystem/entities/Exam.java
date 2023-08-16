@@ -1,7 +1,6 @@
 package com.neebal.springexamSystem.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+
 import jakarta.persistence.*;
 
 import java.util.Set;

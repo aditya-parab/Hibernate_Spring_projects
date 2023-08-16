@@ -71,7 +71,8 @@ public class StudentExam  {
     @Column(nullable = true)
     private int marksObtained;
 
-    @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
+    @Column(nullable = true)
     private Date dateExamTaken;
 
 }

@@ -2,8 +2,14 @@ package com.example.collegemgmt.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name="books")
+@NamedQueries({
+        @NamedQuery(name="queryBookByPriceLessThanEqual",
+                    query ="from Book b where b.price <= :price")
+})
 public class Book {
 
     @Id
@@ -18,6 +24,9 @@ public class Book {
 
     @Column(nullable = true)
     private Double price;
+
+    @OneToMany(mappedBy = "book")
+    Set<BookStudent> studentsIssued;
 
     public Book() {
 
