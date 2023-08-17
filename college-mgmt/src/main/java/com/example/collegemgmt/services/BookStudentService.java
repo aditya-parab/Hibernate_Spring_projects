@@ -18,19 +18,32 @@ import java.util.Set;
 @Service
 public class BookStudentService {
 
-    @Autowired
+//    @Autowired
     BookRepository bookRepository;
 
-    @Autowired
+//    @Autowired
     StudentRepository studentRepository;
 
-    @Autowired
+//    @Autowired
     BookStudentRepository bookStudentRepository;
+
+    public BookStudentService() {
+    }
+
+
+
+    public BookStudentService(BookStudentService bookStudentService,
+                                  StudentRepository studentRepository,
+                                  BookStudentRepository bookStudentRepository) {
+        this.bookStudentService = bookStudentService;
+        this.studentRepository = studentRepository;
+        this.bookStudentRepository = bookStudentRepository;
+    }
 
     //self injection to call buisiness methods within the same services
     @Autowired
     @Lazy // to avoid circular dependency
-    BookStudentService bookStudentService;
+            BookStudentService bookStudentService;
 
     @Autowired
     SendEmailService sendEmailService;

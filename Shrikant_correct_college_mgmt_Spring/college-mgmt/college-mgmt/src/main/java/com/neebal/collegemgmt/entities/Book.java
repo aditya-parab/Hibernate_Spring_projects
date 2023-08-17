@@ -1,4 +1,5 @@
-package com.example.collegemgmt.entities;
+package com.neebal.collegemgmt.entities;
+
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
@@ -9,37 +10,37 @@ import jakarta.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
-@Table(name="books")
+@Table(name = "books")
 @NamedQueries({
-        @NamedQuery(name="queryBookByPriceLessThanEqual",
-                    query ="from Book b where b.price <= :price")
-})
+        @NamedQuery(name = "queryBookByPriceLessThanEqual",
+        query = "from Book b where b.price <= :price")
+}
+)
 public class Book {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
-    @Column(nullable = false, length = 50)
-        private String title;
 
-    @Min(value = 5,message = "pages must be minimum 5")
+    @NotEmpty(message = "Title cannot be empty")
+    @Column(nullable = false, length = 50)
+    private String title;
+
+    @Min(value = 5, message = "Pages must be minimum 5")
     @Column(nullable = false)
     private Integer pages;
 
-    @DecimalMin(value = "1",message = "too few decimals,minimum 1")
+    @DecimalMin(value = "1", message = "Price must be greater than 0")
     @Column(nullable = true)
     private Double price;
 
     @OneToMany(mappedBy = "book")
-    Set<BookStudent> studentsIssued;
+    private Set<BookStudent> studentsIssued;
 
-    public Book() {
 
-    }
+    public Book(){}
 
-    public Book(String title, int pages, Double price) {
+    public Book(String title, Integer pages, Double price) {
         this.title = title;
         this.pages = pages;
         this.price = price;
@@ -61,11 +62,11 @@ public class Book {
         this.title = title;
     }
 
-    public int getPages() {
+    public Integer getPages() {
         return pages;
     }
 
-    public void setPages(int pages) {
+    public void setPages(Integer pages) {
         this.pages = pages;
     }
 
@@ -75,5 +76,15 @@ public class Book {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", pages=" + pages +
+                ", price=" + price +
+                '}';
     }
 }

@@ -11,13 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 @SpringBootApplication
-public class   CollegeMgmtSystemApplication implements CommandLineRunner {
+@EnableAsync
+public class   CollegeMgmtSystemApplication {
 
 
 	@Autowired
@@ -36,8 +38,8 @@ public class   CollegeMgmtSystemApplication implements CommandLineRunner {
 		SpringApplication.run(CollegeMgmtSystemApplication.class, args);
 	}
 
-	@Override
-	public void run(String... args) throws Exception {
+//	@Override
+//	public void run(String... args) throws Exception {
 //		Book book1 = new Book("progress in java",900,150.0);
 //		this.bookRepository.save(book);
 //		System.out.println(book.getId());
@@ -118,9 +120,9 @@ public class   CollegeMgmtSystemApplication implements CommandLineRunner {
 
 //		this.bookStudentService.transferBook(3l,2l,4l);
 
-		this.bookStudentService.issueBook(5l,4l);
+//		this.bookStudentService.issueBook(5l,4l);
 
 
-	}
+//	}
 
 }
