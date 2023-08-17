@@ -19,7 +19,7 @@ import java.util.List;
 
 @SpringBootApplication
 @EnableAsync
-public class   CollegeMgmtSystemApplication {
+public class   CollegeMgmtSystemApplication implements CommandLineRunner{
 
 
 	@Autowired
@@ -38,8 +38,8 @@ public class   CollegeMgmtSystemApplication {
 		SpringApplication.run(CollegeMgmtSystemApplication.class, args);
 	}
 
-//	@Override
-//	public void run(String... args) throws Exception {
+	@Override
+	public void run(String... args) throws Exception {
 //		Book book1 = new Book("progress in java",900,150.0);
 //		this.bookRepository.save(book);
 //		System.out.println(book.getId());
@@ -120,9 +120,9 @@ public class   CollegeMgmtSystemApplication {
 
 //		this.bookStudentService.transferBook(3l,2l,4l);
 
-//		this.bookStudentService.issueBook(5l,4l);
+		this.bookStudentService.returnBook(3l,4l);
 
 
-//	}
+	}
 
 }
