@@ -108,5 +108,16 @@ public class ExamController {
 
 
 
+
+
+    }
+
+    @RequestMapping(value = "/resultPage", method = RequestMethod.GET)
+    public String resultsDisplay(@ModelAttribute("name") String name,@ModelAttribute("totalMarks") int totalMarks, ModelMap modelMap){
+        modelMap.put("totalMarks",totalMarks);
+        modelMap.put("name",name);
+
+        return "resultPage";
+
     }
 }
