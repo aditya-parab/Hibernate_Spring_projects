@@ -22,7 +22,7 @@ public class Question {
     @ManyToOne()
     private Topic topic;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "question")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "question",fetch = FetchType.EAGER)
     private Set<QuestionOption> questionOptions;
 
     @OneToMany(mappedBy = "question")

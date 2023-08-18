@@ -13,6 +13,6 @@ public class SpringExamSystemApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println("hello!");
+		System.out.println("hello the application has started!");
 	}
 }

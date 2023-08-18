@@ -5,6 +5,7 @@ import com.neebal.springexamSystem.entities.ExamQuestion;
 import com.neebal.springexamSystem.entities.StudentEntity;
 import com.neebal.springexamSystem.entities.StudentExam;
 import com.neebal.springexamSystem.repository.ExamRepository;
+import com.neebal.springexamSystem.repository.StudentEntityRepository;
 import com.neebal.springexamSystem.services.MasterDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,13 +20,15 @@ import java.util.List;
 
 
 @Controller
-@SessionAttributes({"student","studentExam","examQuestions"}) //names of attributes that we want SPRING MVC to remember for whole session
+@SessionAttributes({"student","name","studentExam","examQuestions"}) //names of attributes that we want SPRING MVC to remember for whole session
 public class MainController {
 
     @Autowired
     MasterDataService masterDataService;
     @Autowired
     ExamRepository examRepository;
+    @Autowired
+    StudentEntityRepository studentEntityRepository;
 
 
     public MainController(){
@@ -58,31 +61,32 @@ public class MainController {
         model.addAttribute("student",student);
 
 
+
         StudentExam studentExam = new StudentExam();
         studentExam.setStudentEntity(student);
-        model.addAttribute("studentExam",student);
+        model.addAttribute("studentExam",studentExam);
 
-        redirectAttributes.addFlashAttribute("name",student.getName());
+
+//        studentEntityRepository.save(student);
+
+        model.addAttribute("name",student.getName());
+
 
 
 
        List<Exam> examList= this.examRepository.findAll();
-//       examList.forEach(
-//               exam -> System.out.println(exam.getTitle())
-//       );
 
-        redirectAttributes.addFlashAttribute("examList",examList);
-//       modelMap.put();
+        model.addAttribute("examList",examList);
 
 
-        return "redirect:/chooseexam";
+        return "/chooseexam";
 
     }
 
     @RequestMapping(value = "/chooseexam",method = RequestMethod.GET)
-    public String chooseExamGet(ModelMap modelMap, @ModelAttribute("name")String name) {
+    public String chooseExamGet(ModelMap modelMap, Model model, @ModelAttribute("name")String name) {
 
-        modelMap.put("name",name);
+        model.addAttribute("name",name);
 
 
         return "chooseexam";
@@ -98,15 +102,12 @@ public class MainController {
                 selectedExam = exam;
             }
         }
+
         studentExam.setDateExamTaken(new Date());
         studentExam.setExam(selectedExam);
         List<ExamQuestion> examQuestions = new ArrayList<>(selectedExam.getExamQuestions());
-            modelMap.put("examQuestions",examQuestions);
-            model.addAttribute("examQuestions", examQuestions);
 
-//        for(ExamQuestion examQuestion: examQuestions){
-//            System.out.println(examQuestion.getQuestion().getDescr());
-//        }
+            model.addAttribute("examQuestions", examQuestions);
 
 
         return "redirect:/exampage";
