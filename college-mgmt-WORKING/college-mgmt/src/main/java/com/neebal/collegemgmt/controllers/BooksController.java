@@ -3,6 +3,8 @@ package com.neebal.collegemgmt.controllers;
 import com.neebal.collegemgmt.entities.Book;
 import com.neebal.collegemgmt.exceptions.ResourceNotFoundException;
 import com.neebal.collegemgmt.repository.BookRepository;
+import com.neebal.collegemgmt.repository.BookStudentRepository;
+import com.neebal.collegemgmt.services.BookStudentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,14 @@ public class BooksController {
 
     @Autowired
     private BookRepository bookRepository;
+
+    @Autowired
+    private BookStudentRepository bookStudentRepository;
+
+    @Autowired
+    BookStudentService bookStudentService;
+
+
     @GetMapping
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
@@ -65,4 +75,29 @@ public class BooksController {
         Book newBook = this.bookRepository.save(book);
         return newBook;
     }
+
+    //issue book
+    @PostMapping("/{bookId}/students/{studentId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void issueBook(@PathVariable Long bookId, @PathVariable Long studentId){
+        bookStudentService.issueBook(bookId,studentId);
+
+    }
+
+    //return book
+    @PutMapping("/{bookId}/students/{studentId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void returnBook(@PathVariable Long bookId, @PathVariable Long studentId){
+        bookStudentService.returnBook(bookId,studentId);
+
+    }
+
+    //transfer book
+    @PostMapping("/{bookId}/students/{fromStudentId}/students/{toStudentId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void transferBook(@PathVariable Long bookId, @PathVariable Long fromStudentId, @PathVariable Long toStudentId){
+        bookStudentService.transferBook(bookId,fromStudentId,toStudentId);
+
+    }
+
 }
